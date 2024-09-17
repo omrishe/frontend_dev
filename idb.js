@@ -10,7 +10,7 @@ class IdbCaloriesDB {
   
         request.onupgradeneeded = (e) => {
           this.db = e.target.result;
-  
+        
           // Create object store if it doesn't exist
           if (!this.db.objectStoreNames.contains('calories')) {
             this.db.createObjectStore('calories', { keyPath: 'id', autoIncrement: true });
@@ -32,13 +32,24 @@ class IdbCaloriesDB {
     // Add a new calorie entry to the database
     addCalories(entry) {
       return new Promise((resolve, reject) => {
+        console.log(this.db.objectStoreNames)
         const transaction = this.db.transaction(['calories'], 'readwrite');
+
+        transaction.onerror = (event) => {
+          console.log("Transaction error");
+        };
+
+        transaction.oncomplete = (event) => {
+          console.log("Transaction completed.");
+        };
+      
         const store = transaction.objectStore('calories');
   
         // Add new entry
         const request = store.add(entry);
   
         request.onsuccess = () => {
+          console.log("successfully added to store")
           resolve(true); // Resolve promise if successful
         };
   
@@ -62,7 +73,9 @@ class IdbCaloriesDB {
           // Filter entries by month and year
           results = data.filter(item => {
             const date = new Date(item.date);
-            return date.getFullYear() === year && date.getMonth() === month;
+            console.log("submitted date is:" + year + " " + month)
+            console.log("input date is:" + date.getFullYear() + " " + (date.getMonth() + 1));
+            return date.getFullYear() === year && date.getMonth() +1 === month;
           });
   
           resolve(results); // Resolve with the filtered results
