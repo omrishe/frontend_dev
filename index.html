@@ -62,7 +62,6 @@
       const category = document.getElementById('categoryInput').value;
       const description = document.getElementById('descriptionInput').value;
       const dateInput = document.getElementById('dateInput').value;
-
       // Use current date if no date is provided
       const entryDate = dateInput ? new Date(dateInput).toISOString() : new Date().toISOString();
 
@@ -89,7 +88,7 @@
     // Event listener for generating the monthly report
     document.getElementById('reportBtn').addEventListener('click', async () => {
       const year = prompt('Enter year:');
-      const month = prompt('Enter month (0-11):');
+      const month = prompt('Enter month (1-12):');
       
       // Retrieve calorie entries for the specified month and year
       const db = await idb.openCaloriesDB('caloriesdb', 1);
