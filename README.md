@@ -26,6 +26,6 @@ This project is a frontend web application built using modern web technologies. 
 Open index.html in your browser
 3. Open http://localhost:3000 in your browser.
 
-# author:omri shema,chen shemesh
+# authors:omri shema,chen shemesh
 
 
